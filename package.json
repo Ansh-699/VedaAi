@@ -1,0 +1,27 @@
+{
+  "name": "vedai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VedaAI — AI Assessment Creator (monorepo)",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:api dev:worker dev:web",
+    "dev:api": "npm --workspace backend run dev",
+    "dev:worker": "npm --workspace backend run dev:worker",
+    "dev:web": "npm --workspace frontend run dev",
+    "build": "npm-run-all build:backend build:frontend",
+    "build:backend": "npm --workspace backend run build",
+    "build:frontend": "npm --workspace frontend run build",
+    "typecheck": "npm-run-all typecheck:*",
+    "typecheck:backend": "npm --workspace backend run typecheck",
+    "typecheck:frontend": "npm --workspace frontend exec tsc -- --noEmit",
+    "stack:up": "docker compose up -d",
+    "stack:down": "docker compose down"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
