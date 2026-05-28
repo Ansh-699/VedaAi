@@ -3,13 +3,6 @@
 import { ChevronDown, Minus, Plus, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-export type QuestionTypeValue =
-  | "Multiple Choice Questions"
-  | "Short Questions"
-  | "Diagram/Graph-Based Questions"
-  | "Numerical Problems"
-  | "Long Answer";
-
 export type QuestionRow = {
   id: string;
   type: string;
@@ -29,7 +22,7 @@ export function Stepper({
   return (
     <div
       className={cn(
-        "flex h-10 w-[112px] items-center justify-between rounded-full bg-white px-3",
+        "flex h-10 items-center justify-between rounded-full bg-white px-3",
         className,
       )}
       style={{
@@ -72,50 +65,96 @@ export function QuestionTypeRow({
   onChange: (next: QuestionRow) => void;
   onRemove?: () => void;
 }) {
+  const selectPill = (
+    <label
+      className="flex h-11 flex-1 items-center gap-2 rounded-full bg-white px-5"
+      style={{
+        boxShadow:
+          "0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06)",
+      }}
+    >
+      <select
+        value={row.type}
+        onChange={(e) => onChange({ ...row, type: e.target.value })}
+        className="flex-1 appearance-none bg-transparent text-[14px] text-ink focus:outline-none"
+        style={{ letterSpacing: "-0.02em" }}
+      >
+        <option>Multiple Choice Questions</option>
+        <option>Short Questions</option>
+        <option>Diagram/Graph-Based Questions</option>
+        <option>Numerical Problems</option>
+        <option>Long Answer</option>
+      </select>
+      <ChevronDown className="h-4 w-4 text-ink-muted" strokeWidth={2} />
+    </label>
+  );
+
+  const removeBtn = (
+    <button
+      type="button"
+      aria-label="Remove"
+      onClick={onRemove}
+      className="grid h-9 w-9 shrink-0 place-items-center text-ink-muted hover:text-ink"
+    >
+      <X className="h-4 w-4" strokeWidth={2} />
+    </button>
+  );
+
   return (
-    <div className="flex items-center gap-3">
-      {/* Pill select */}
-      <label
-        className="flex h-11 flex-1 items-center gap-2 rounded-full bg-white px-5"
-        style={{
-          boxShadow:
-            "0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06)",
-        }}
+    <>
+      {/* Mobile: stacked card */}
+      <div
+        className="flex flex-col gap-3 rounded-2xl bg-white/40 p-3 md:hidden"
       >
-        <select
-          value={row.type}
-          onChange={(e) =>
-            onChange({ ...row, type: e.target.value })
-          }
-          className="flex-1 appearance-none bg-transparent text-[14px] text-ink focus:outline-none"
-          style={{ letterSpacing: "-0.02em" }}
-        >
-          <option>Multiple Choice Questions</option>
-          <option>Short Questions</option>
-          <option>Diagram/Graph-Based Questions</option>
-          <option>Numerical Problems</option>
-          <option>Long Answer</option>
-        </select>
-        <ChevronDown className="h-4 w-4 text-ink-muted" strokeWidth={2} />
-      </label>
+        <div className="flex items-center gap-2">
+          {selectPill}
+          {removeBtn}
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-col gap-1">
+            <span
+              className="text-[12px] font-medium text-ink-muted"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              No. of Questions
+            </span>
+            <Stepper
+              value={row.count}
+              onChange={(v) => onChange({ ...row, count: v })}
+              className="w-full"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <span
+              className="text-[12px] font-medium text-ink-muted"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              Marks
+            </span>
+            <Stepper
+              value={row.marks}
+              onChange={(v) => onChange({ ...row, marks: v })}
+              className="w-full"
+            />
+          </div>
+        </div>
+      </div>
 
-      <button
-        type="button"
-        aria-label="Remove"
-        onClick={onRemove}
-        className="grid h-9 w-9 shrink-0 place-items-center text-ink-muted hover:text-ink"
-      >
-        <X className="h-4 w-4" strokeWidth={2} />
-      </button>
-
-      <Stepper
-        value={row.count}
-        onChange={(v) => onChange({ ...row, count: v })}
-      />
-      <Stepper
-        value={row.marks}
-        onChange={(v) => onChange({ ...row, marks: v })}
-      />
-    </div>
+      {/* Desktop: single row */}
+      <div className="hidden items-center gap-3 md:flex">
+        {selectPill}
+        {removeBtn}
+        <Stepper
+          value={row.count}
+          onChange={(v) => onChange({ ...row, count: v })}
+          className="w-[112px]"
+        />
+        <Stepper
+          value={row.marks}
+          onChange={(v) => onChange({ ...row, marks: v })}
+          className="w-[112px]"
+        />
+      </div>
+    </>
   );
 }

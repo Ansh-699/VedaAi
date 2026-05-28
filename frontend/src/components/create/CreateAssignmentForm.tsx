@@ -8,6 +8,7 @@ import { QuestionTypeRow } from "./QuestionTypeRow";
 import { StepTabs } from "./StepTabs";
 import { useCreateAssignment } from "@/lib/store/createAssignmentStore";
 import { useSettings } from "@/lib/store/settingsStore";
+import { useAssignments } from "@/lib/store/assignmentsStore";
 import { api, ApiError } from "@/lib/api/client";
 import { toast } from "@/components/ui/Toaster";
 
@@ -19,6 +20,7 @@ export function CreateAssignmentForm() {
   const router = useRouter();
   const state = useCreateAssignment();
   const settings = useSettings();
+  const refreshAssignments = useAssignments((s) => s.refresh);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const mountedRef = useRef(false);
 
@@ -183,8 +185,9 @@ export function CreateAssignmentForm() {
 
         {/* Question Type */}
         <div className="flex flex-col gap-3">
+          {/* Desktop column headers — hidden on mobile (each row has its own labels) */}
           <div
-            className="grid items-end gap-3 text-[14px] font-medium text-ink"
+            className="hidden items-end gap-3 text-[14px] font-medium text-ink md:grid"
             style={{
               gridTemplateColumns: "1fr 36px 112px 112px",
               letterSpacing: "-0.02em",
@@ -196,6 +199,16 @@ export function CreateAssignmentForm() {
             <span />
             <span className="text-center">No. of Questions</span>
             <span className="text-center">Marks</span>
+          </div>
+
+          {/* Mobile-only section heading */}
+          <div className="md:hidden">
+            <span
+              className="text-[14px] font-medium text-ink underline decoration-ink/20 underline-offset-4"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              Question Type
+            </span>
           </div>
 
           {state.rows.map((row) => (

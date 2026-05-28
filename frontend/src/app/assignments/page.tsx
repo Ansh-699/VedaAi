@@ -13,6 +13,7 @@ import { MobileFab } from "@/components/layout/MobileFab";
 import { MobilePageHeader } from "@/components/layout/MobilePageHeader";
 import { MobileTopBar } from "@/components/layout/MobileTopBar";
 import { api } from "@/lib/api/client";
+import { useAssignments } from "@/lib/store/assignmentsStore";
 
 function fmtDate(s: string) {
   try {
@@ -27,6 +28,7 @@ export default function AssignmentsListPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState("");
+  const setSidebarCount = useAssignments((s) => s.setCount);
 
   async function refresh() {
     try {
@@ -39,9 +41,11 @@ export default function AssignmentsListPage() {
           due: fmtDate(a.dueDate),
         })),
       );
+      setSidebarCount(res.items.length);
     } catch {
       // Backend offline — show empty state.
       setAssignments([]);
+      setSidebarCount(0);
     } finally {
       setLoaded(true);
     }
@@ -52,7 +56,11 @@ export default function AssignmentsListPage() {
   }, []);
 
   function handleDeleted(id: string) {
-    setAssignments((list) => list.filter((a) => a.id !== id));
+    setAssignments((list) => {
+      const next = list.filter((a) => a.id !== id);
+      setSidebarCount(next.length);
+      return next;
+    });
   }
 
   const filtered = useMemo(() => {

@@ -11,7 +11,6 @@ type Item = {
   icon: React.ComponentType<{
     className?: string;
     strokeWidth?: number;
-    fill?: string;
   }>;
   matchPrefix?: boolean;
 };
@@ -53,15 +52,14 @@ export function MobileBottomNav() {
           >
             <Icon
               className={cn(
-                "h-[26px] w-[26px]",
+                "h-[24px] w-[24px]",
                 active ? "text-white" : "text-white/55",
               )}
-              strokeWidth={active ? 2.2 : 1.8}
-              fill={active ? "currentColor" : "none"}
+              strokeWidth={active ? 2.4 : 1.8}
             />
             <span
               className={cn(
-                "text-[14px] leading-none",
+                "text-[13px] leading-none",
                 active
                   ? "font-bold text-white"
                   : "font-medium text-white/55",
@@ -70,6 +68,12 @@ export function MobileBottomNav() {
             >
               {item.label}
             </span>
+            {active && (
+              <span
+                aria-hidden
+                className="absolute -top-1 h-1 w-8 rounded-full bg-white"
+              />
+            )}
           </Link>
         );
       })}

@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { avatars } from "@/lib/avatars";
 import { cn } from "@/lib/cn";
+import { useAssignments } from "@/lib/store/assignmentsStore";
 import {
   BookText,
   ClipboardList,
@@ -23,7 +25,8 @@ type NavItem = {
     size?: number;
     strokeWidth?: number;
   }>;
-  badge?: number;
+  /** If "assignments", the badge value comes from the live store. */
+  badgeKey?: "assignments";
   matchPrefix?: boolean;
 };
 
@@ -34,7 +37,7 @@ const navItems: NavItem[] = [
     label: "Assignments",
     href: "/assignments",
     icon: ClipboardList,
-    badge: 10,
+    badgeKey: "assignments",
     matchPrefix: true,
   },
   { label: "AI Teacher's Toolkit", href: "/toolkit", icon: BookText },
@@ -48,6 +51,12 @@ function isActive(pathname: string, item: NavItem) {
 
 export function Sidebar() {
   const pathname = usePathname() ?? "/";
+  const assignmentsCount = useAssignments((s) => s.count);
+  const refreshAssignments = useAssignments((s) => s.refresh);
+
+  useEffect(() => {
+    refreshAssignments();
+  }, [refreshAssignments]);
 
   return (
     <aside
@@ -111,18 +120,20 @@ export function Sidebar() {
                   strokeWidth={active ? 2 : 1.75}
                 />
                 <span className="flex-1">{item.label}</span>
-                {item.badge !== undefined && (
-                  <span
-                    className="inline-flex h-5 items-center justify-center rounded-full px-2.5 text-[14px] font-semibold leading-none text-white"
-                    style={{
-                      background: "#FF5623",
-                      letterSpacing: "-0.04em",
-                      boxShadow: "inset 0 0 32px rgba(255,161,10,0.25)",
-                    }}
-                  >
-                    {item.badge}
-                  </span>
-                )}
+                {item.badgeKey === "assignments" &&
+                  assignmentsCount !== null &&
+                  assignmentsCount > 0 && (
+                    <span
+                      className="inline-flex h-5 items-center justify-center rounded-full px-2.5 text-[14px] font-semibold leading-none text-white"
+                      style={{
+                        background: "#FF5623",
+                        letterSpacing: "-0.04em",
+                        boxShadow: "inset 0 0 32px rgba(255,161,10,0.25)",
+                      }}
+                    >
+                      {assignmentsCount}
+                    </span>
+                  )}
               </Link>
             );
           })}
