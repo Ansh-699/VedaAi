@@ -68,12 +68,6 @@ export function MobileBottomNav() {
             >
               {item.label}
             </span>
-            {active && (
-              <span
-                aria-hidden
-                className="absolute -top-1 h-1 w-8 rounded-full bg-white"
-              />
-            )}
           </Link>
         );
       })}
