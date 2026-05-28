@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowLeft, Bell, ChevronDown, LayoutGrid } from "lucide-react";
+import { ArrowLeft, Bell, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { avatars } from "@/lib/avatars";
 import { toast } from "@/components/ui/Toaster";
+import { GridIcon } from "@/components/icons/SidebarIcons";
 
 export function Topbar({ title }: { title: string }) {
   const router = useRouter();
@@ -23,7 +23,7 @@ export function Topbar({ title }: { title: string }) {
       </button>
 
       <div className="flex items-center gap-2 text-ink-disabled">
-        <LayoutGrid className="h-5 w-5" strokeWidth={2} />
+        <GridIcon className="h-5 w-5" stroke="#A9A9A9" strokeOpacity={1} />
         <span
           className="text-[16px] font-semibold"
           style={{ letterSpacing: "-0.04em" }}
@@ -59,7 +59,7 @@ export function Topbar({ title }: { title: string }) {
         <span
           className="h-8 w-8 shrink-0 rounded-full bg-cover bg-center"
           style={{
-            backgroundImage: `url('${avatars.user("John Doe")}')`,
+            backgroundImage: "url('/nft.png')",
             backgroundColor: "#F6F6F6",
           }}
           aria-hidden

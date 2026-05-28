@@ -2,7 +2,6 @@
 
 import { Bell, Menu } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import { avatars } from "@/lib/avatars";
 import { toast } from "@/components/ui/Toaster";
 
 export function MobileTopBar() {
@@ -39,7 +38,7 @@ export function MobileTopBar() {
         onClick={() => toast("Account menu coming soon", "info")}
         className="h-9 w-9 shrink-0 rounded-full bg-cover bg-center"
         style={{
-          backgroundImage: `url('${avatars.user("John Doe")}')`,
+          backgroundImage: "url('/nft.png')",
           backgroundColor: "#F6F6F6",
         }}
       />

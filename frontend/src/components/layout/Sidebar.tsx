@@ -2,46 +2,41 @@
 
 import { useEffect } from "react";
 import { Logo } from "@/components/brand/Logo";
-import { avatars } from "@/lib/avatars";
 import { cn } from "@/lib/cn";
 import { useAssignments } from "@/lib/store/assignmentsStore";
 import {
-  BookText,
-  ClipboardList,
-  Home,
-  LibraryBig,
-  Settings,
-  Sparkles,
-  Users,
-} from "lucide-react";
+  AssignmentsIcon,
+  GridIcon,
+  GroupsIcon,
+  LibraryArcIcon,
+  SparkleIcon,
+  ToolkitIcon,
+} from "@/components/icons/SidebarIcons";
+import { Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 type NavItem = {
   label: string;
   href: string;
-  icon: React.ComponentType<{
-    className?: string;
-    size?: number;
-    strokeWidth?: number;
-  }>;
+  icon: React.ComponentType<{ className?: string }>;
   /** If "assignments", the badge value comes from the live store. */
   badgeKey?: "assignments";
   matchPrefix?: boolean;
 };
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "/", icon: Home },
-  { label: "My Groups", href: "/groups", icon: Users },
+  { label: "Home", href: "/", icon: GridIcon },
+  { label: "My Groups", href: "/groups", icon: GroupsIcon },
   {
     label: "Assignments",
     href: "/assignments",
-    icon: ClipboardList,
+    icon: AssignmentsIcon,
     badgeKey: "assignments",
     matchPrefix: true,
   },
-  { label: "AI Teacher's Toolkit", href: "/toolkit", icon: BookText },
-  { label: "My Library", href: "/library", icon: LibraryBig },
+  { label: "AI Teacher's Toolkit", href: "/toolkit", icon: ToolkitIcon },
+  { label: "My Library", href: "/library", icon: LibraryArcIcon },
 ];
 
 function isActive(pathname: string, item: NavItem) {
@@ -73,7 +68,7 @@ export function Sidebar() {
           <Logo />
 
           <div
-            className="rounded-full p-[3px]"
+            className="rounded-full p-[4px]"
             style={{ background: "#FD8B67" }}
           >
             <Link
@@ -89,10 +84,7 @@ export function Sidebar() {
                 letterSpacing: "-0.04em",
               }}
             >
-              <Sparkles
-                className="h-[18px] w-[18px]"
-                style={{ color: "#FF7A3A" }}
-              />
+              <SparkleIcon className="h-[18px] w-[18px]" />
               Create Assignment
             </Link>
           </div>
@@ -115,10 +107,9 @@ export function Sidebar() {
                 )}
                 style={{ letterSpacing: "-0.04em" }}
               >
-                <Icon
-                  className="h-5 w-5 shrink-0"
-                  strokeWidth={active ? 2 : 1.75}
-                />
+                <span className="grid h-5 w-5 shrink-0 place-items-center">
+                  <Icon className="h-5 w-5" />
+                </span>
                 <span className="flex-1">{item.label}</span>
                 {item.badgeKey === "assignments" &&
                   assignmentsCount !== null &&
@@ -165,7 +156,7 @@ export function Sidebar() {
           <div
             className="h-14 w-[59px] shrink-0 rounded-xl bg-cover bg-center"
             style={{
-              backgroundImage: `url('${avatars.nft("Delhi Public School Bokaro")}')`,
+              backgroundImage: "url('/nft.png')",
               backgroundColor: "#FFFFFF",
             }}
             aria-hidden

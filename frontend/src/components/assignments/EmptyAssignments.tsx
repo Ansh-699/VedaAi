@@ -7,7 +7,7 @@ export function EmptyAssignments() {
     <div className="flex h-full w-full items-center justify-center px-6">
       <div className="flex w-[486px] max-w-full flex-col items-center gap-7">
         <div className="flex flex-col items-center gap-2">
-          <EmptyAssignmentsArt className="h-[240px] w-[240px]" />
+          <EmptyAssignmentsArt className="h-[300px] w-[300px]" />
 
           <div className="flex w-full flex-col items-center gap-0.5 px-2">
             <h2

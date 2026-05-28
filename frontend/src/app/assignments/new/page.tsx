@@ -11,12 +11,14 @@ export default function CreateAssignmentPage() {
       {/* Desktop */}
       <AppShell topbarTitle="Assignment">
         <section className="flex-1 overflow-y-auto rounded-[16px] bg-white/30">
-          <div className="mx-auto flex max-w-[720px] flex-col gap-6 p-6">
+          <div className="flex flex-col gap-6 p-6">
             <PageTitle
               title="Create Assignment"
               subtitle="Set up a new assignment for your students"
             />
-            <CreateAssignmentForm />
+            <div className="mx-auto w-full max-w-[720px]">
+              <CreateAssignmentForm />
+            </div>
           </div>
         </section>
       </AppShell>
