@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MoreVertical, Trash2, Eye, Download } from "lucide-react";
+import { MoreVertical, Trash2, Eye } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { api } from "@/lib/api/client";
@@ -46,11 +46,6 @@ export function AssignmentCard({
     } catch (err) {
       toast(`Delete failed: ${(err as Error).message}`, "error");
     }
-  }
-
-  function handleDownload() {
-    setOpen(false);
-    window.open(api.pdfUrl(assignment.id), "_blank");
   }
 
   return (
@@ -103,16 +98,6 @@ export function AssignmentCard({
                 <Eye className="h-4 w-4" strokeWidth={2} />
                 View Assignment
               </Link>
-              <button
-                type="button"
-                role="menuitem"
-                onClick={handleDownload}
-                className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-[14px] font-medium text-ink hover:bg-surface-muted"
-                style={{ letterSpacing: "-0.02em" }}
-              >
-                <Download className="h-4 w-4" strokeWidth={2} />
-                Download PDF
-              </button>
               <button
                 type="button"
                 role="menuitem"

@@ -103,18 +103,6 @@ function OutputBody() {
     window.open(api.pdfUrl(id), "_blank");
   }
 
-  async function handleRegenerate() {
-    if (!id) return;
-    try {
-      await api.regenerate(id);
-      setStatus("generating");
-      setPaper(null);
-      toast("Regeneration queued", "loading");
-    } catch (err) {
-      toast(`Regenerate failed: ${(err as Error).message}`, "error");
-    }
-  }
-
   const intro = useMemo(() => {
     if (status === "generating" || status === "loading")
       return "Generating your customized question paper. This usually takes 5–20 seconds…";
@@ -137,7 +125,6 @@ function OutputBody() {
             <IntroBanner
               text={intro}
               onDownload={status === "ready" ? handleDownload : undefined}
-              onRegenerate={id ? handleRegenerate : undefined}
               busy={busy}
             />
             {showSkeleton ? (
@@ -158,7 +145,6 @@ function OutputBody() {
             text={intro}
             variant="mobile"
             onDownload={status === "ready" ? handleDownload : undefined}
-            onRegenerate={id ? handleRegenerate : undefined}
             busy={busy}
           />
           {showSkeleton ? (

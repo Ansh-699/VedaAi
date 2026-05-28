@@ -1,12 +1,11 @@
 "use client";
 
-import { Download, RefreshCw } from "lucide-react";
+import { DownloadIcon } from "@/components/icons/SidebarIcons";
 
 type Props = {
   text: string;
   variant?: "desktop" | "mobile";
   onDownload?: () => void;
-  onRegenerate?: () => void;
   busy?: boolean;
 };
 
@@ -14,7 +13,6 @@ export function IntroBanner({
   text,
   variant = "desktop",
   onDownload,
-  onRegenerate,
   busy,
 }: Props) {
   if (variant === "mobile") {
@@ -42,23 +40,8 @@ export function IntroBanner({
             className="grid h-9 w-9 place-items-center rounded-full disabled:opacity-50"
             style={{ background: "rgba(246,246,246,0.1)" }}
           >
-            <Download className="h-5 w-5 text-white" strokeWidth={2} />
+            <DownloadIcon className="h-5 w-5" />
           </button>
-          {onRegenerate && (
-            <button
-              type="button"
-              aria-label="Regenerate"
-              onClick={onRegenerate}
-              disabled={busy}
-              className="grid h-9 w-9 place-items-center rounded-full disabled:opacity-50"
-              style={{ background: "rgba(246,246,246,0.1)" }}
-            >
-              <RefreshCw
-                className="h-5 w-5 text-white"
-                strokeWidth={2}
-              />
-            </button>
-          )}
         </div>
       </div>
     );
@@ -83,21 +66,9 @@ export function IntroBanner({
           className="inline-flex h-11 items-center gap-1 rounded-full bg-white px-6 text-[16px] font-medium text-ink hover:bg-white/95 disabled:opacity-60"
           style={{ letterSpacing: "-0.04em" }}
         >
-          <Download className="h-5 w-5" strokeWidth={2} />
+          <DownloadIcon className="h-5 w-5" />
           Download as PDF
         </button>
-        {onRegenerate && (
-          <button
-            type="button"
-            onClick={onRegenerate}
-            disabled={busy}
-            className="inline-flex h-11 items-center gap-1 rounded-full bg-white/10 px-5 text-[15px] font-medium text-white hover:bg-white/15 disabled:opacity-60"
-            style={{ letterSpacing: "-0.04em" }}
-          >
-            <RefreshCw className="h-4 w-4" strokeWidth={2} />
-            {busy ? "Regenerating..." : "Regenerate"}
-          </button>
-        )}
       </div>
     </div>
   );
