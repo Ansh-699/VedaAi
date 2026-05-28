@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="VedaAI banner" />
+</p>
+
 # VedaAI — AI Assessment Creator
 
 Full-stack monorepo. Teachers create assignments, an AI generates structured question papers, and the result is delivered with real-time progress + PDF export.
