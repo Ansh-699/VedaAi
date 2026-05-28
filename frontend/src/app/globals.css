@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui;
+
+  /* Brand */
+  --color-brand: #ff5623;
+  --color-brand-orange-start: #e56820;
+  --color-brand-orange-end: #d45e3e;
+
+  /* Surface */
+  --color-canvas-from: #eeeeee;
+  --color-canvas-to: #dadada;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f0f0f0;
+  --color-surface-soft: #f6f6f6;
+
+  /* Ink (text) */
+  --color-ink: #303030;
+  --color-ink-soft: #181818;
+  --color-ink-button: #272727;
+  --color-ink-muted: rgba(94, 94, 94, 0.8);
+  --color-ink-disabled: #a9a9a9;
+  --color-ink-secondary: #5e5e5e;
+
+  /* Brand deep */
+  --color-navy: #011625;
+  --color-navy-light: #417ba4;
+
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  --letter-spacing-tight: -0.04em;
+  --letter-spacing-tighter: -0.06em;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+  /* Force light scheme — Bricolage tokens were designed for it and the app
+     is locked to a light palette for now. */
+  html {
+    color-scheme: light;
+  }
+  body {
+    background: linear-gradient(180deg, #eeeeee 0%, #dadada 100%);
+    background-attachment: fixed;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    letter-spacing: -0.04em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 999px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
