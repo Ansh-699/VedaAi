@@ -156,7 +156,7 @@ export function Sidebar() {
           <div
             className="h-14 w-[59px] shrink-0 rounded-xl bg-cover bg-center"
             style={{
-              backgroundImage: "url('/nft.png')",
+              backgroundImage: "url('/nft1.png')",
               backgroundColor: "#FFFFFF",
             }}
             aria-hidden

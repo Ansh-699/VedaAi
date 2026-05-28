@@ -59,7 +59,7 @@ export function Topbar({ title }: { title: string }) {
         <span
           className="h-8 w-8 shrink-0 rounded-full bg-cover bg-center"
           style={{
-            backgroundImage: "url('/nft.png')",
+            backgroundImage: "url('/nft1.png')",
             backgroundColor: "#F6F6F6",
           }}
           aria-hidden
